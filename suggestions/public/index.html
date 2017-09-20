@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link href="img/favicon.ico" rel="shortcut icon"/>
+    <title>Buzón de sugerencias</title>
+</head>
+
+<body>
+	<div style="margin-top:2%;">
+		<a class="logo" style="padding-left:2%;"><img src="img/soutec.png" height="30px"></a>
+	</div>
+	<div style="text-align:center;">
+		<h1>Buzón de sugerencias</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-4" style="padding-left:4%">
+			<h4>Pendientes:</h4>
+	        <i class="fa fa-fw fa-plus" onclick="document.getElementById('detalles').style.display = 'block';"></i>
+		    <div class="form-group" style="clear:both;display:none;" id="detalles">
+		      <label>Sugerencia:</label>
+		      <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="comida"></textarea>
+		    	<button id="button" type="button" class="btn btn-primary" style="margin-top:2%;" onclick="document.getElementById('detalles').style.display = 'none';">Enviar</button>
+		    </div>
+		</div>
+		<div class="col-md-4">
+            <div class="chart-container">
+              <canvas id="pieChart" style="height:250px"></canvas>
+            </div>
+		</div>
+		<div class="col-md-4">
+			<h4 style="padding-left:3%">Completadas:</h4>
+		</div>
+	</div>
+
+	<footer>
+	  <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;">
+	  <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;left:330px;">
+	  <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;left:660px;">
+	  <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;right:0;">
+	</footer>
+
+</body>
+
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/firebase.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+
+</html>
