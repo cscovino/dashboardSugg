@@ -8,6 +8,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.min.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link href="img/favicon.ico" rel="shortcut icon"/>
     <title>Buzón de sugerencias</title>
@@ -22,12 +23,14 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4" style="padding-left:4%">
-			<h4>Pendientes:</h4>
+			<h4>Pendientes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar"></i></h4>
+			<div id="pends"></div>
 	        <i class="fa fa-fw fa-plus" onclick="document.getElementById('detalles').style.display = 'block';"></i>
 		    <div class="form-group" style="clear:both;display:none;" id="detalles">
 		      <label>Sugerencia:</label>
-		      <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="comida"></textarea>
-		    	<button id="button" type="button" class="btn btn-primary" style="margin-top:2%;" onclick="document.getElementById('detalles').style.display = 'none';">Enviar</button>
+		      <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="suggestion"></textarea>
+		    	<button id="button" type="button" class="btn btn-default" style="margin-top:2%;" onclick="document.getElementById('detalles').style.display = 'none';">Cerrar</button>
+		    	<button id="button" type="button" class="btn btn-primary" style="margin-top:2%;" onclick="app.sendSuggestion();">Enviar</button>
 		    </div>
 		</div>
 		<div class="col-md-4">
@@ -51,6 +54,7 @@
 
 <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="js/Chart.min.js"></script>
 <script type="text/javascript" src="js/firebase.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
