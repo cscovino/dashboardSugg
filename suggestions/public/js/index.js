@@ -14,6 +14,7 @@ var app = {
   		app.model = snap;
   		app.refreshChart(Object.keys(app.model.pendientes).length,Object.keys(app.model.completadas).length);
   		app.refreshPends();
+  		app.refreshComps();
   	},
 
   	sendSuggestion: function(){
@@ -22,24 +23,98 @@ var app = {
   		firebase.database().ref('pendientes').push({suggestion:sugg,percent:0});
   	},
 
+  	refreshComps: function(){
+  		var suggs = $('#comps');
+		suggs.html('');
+		var codigo = '<ul>';
+  		for(var key in app.model.completadas){
+  			codigo += '<li>'+app.model.completadas[key].suggestion+'</li>';
+  		}
+  		codigo += '</ul>';
+  		suggs.append(codigo);
+  		app.closeEdit();
+  	},
+
   	refreshPends: function(){
   		var suggs = $('#pends');
 		suggs.html('');
 		var codigo = '<ul>';
+		var aux = 0;
   		for(var key in app.model.pendientes){
-  			codigo += '<li>'+app.model.pendientes[key].suggestion+'</li>';
-  			//codigo += '<div class="progress" style="width: 50%;"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"' 
-  			codigo += "<input id='ex8' data-slider-id='ex1Slider' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='45'/>";
-  			//codigo += 'style="width:'+app.model.pendientes[key].percent+'%"></div></div>';
+  			if (app.model.pendientes[key] != "") {
+  				codigo += '<li>'+app.model.pendientes[key].suggestion+'</li>';
+	  			codigo += '<div class="progress" style="width: 60%;"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"';
+	  			codigo += 'style="width:'+app.model.pendientes[key].percent+'%" id=bar'+key+'></div></div>'; 
+	  			codigo += "<input id='slider"+key+"' class='sliders' style='display:none;' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='45'/>";
+  				aux = 1;
+  			}
   		}
   		codigo += '</ul>';
-  		suggs.append(codigo);
-  		$("#ex8").slider();
-  		console.log($("#ex8").slider().getValue());
+  		if (aux === 1) {
+  			suggs.append(codigo);
+  		}
+  		app.closeEdit();
+  	},
+
+  	editPend: function(){
+  		document.getElementById('status').style.display = 'block';
+  		document.getElementById('editar').style.pointerEvents = 'none';
+  		var sliders = document.getElementsByClassName('sliders');
+  		var progressBar = document.getElementsByClassName('progress-bar');
+  		var progress = document.getElementsByClassName('progress');
+  		var i = 0;
+  		for(var key in app.model.pendientes){
+  			debugger;
+  			if (app.model.pendientes[key] != "") {
+	  			sliders[i].style.display = 'block';
+	  			progress[i].style.display = 'none';
+	  			$("#"+sliders[i].id+"").slider();
+	  			$("#"+sliders[i].id+"").slider('setValue', document.getElementById('bar'+key).style.width.split('%')[0]);
+  				i += 1;
+  			}
+  		}
+  	},
+
+  	closeEdit: function(){
+  		document.getElementById('status').style.display = 'none';
+  		document.getElementById('editar').style.pointerEvents = 'auto';
+  		var sliders = document.getElementsByClassName('sliders');
+  		var progress = document.getElementsByClassName('progress');
+  		for(var i=0; i<sliders.length; i++){
+  			$("#"+sliders[i].id+"").slider('destroy');
+  			sliders[i].style.display = 'none';
+  			progress[i].style.display = 'block';
+  		}
+  	},
+
+  	saveStat: function(){
+  		for(var key in app.model.pendientes){
+  			if (app.model.pendientes[key] != ""){
+  				var newPercent = document.getElementById('slider'+key).defaultValue;
+	  			if (newPercent == 100) {
+	  				if (app.model.pendientes[key] != "") {
+	  					firebase.database().ref('completadas').push(app.model.pendientes[key]);
+	  				}
+	  				if (Object.keys(app.model.pendientes).length === 1) {
+	  					firebase.database().ref('pendientes').push('');
+	  				}
+	  				firebase.database().ref('pendientes').child(key).remove();
+	  			}
+	  			else{
+	  				app.model.pendientes[key].percent = newPercent;
+		  			document.getElementById('bar'+key).style.width = newPercent+'%';
+	  			}
+  			}	
+  		}
+  		firebase.database().ref('pendientes').update(app.model.pendientes);
+  		app.closeEdit();
+  		app.refreshPends();
+  		app.refreshComps();
   	},
 
 	refreshChart: function(pend,comp){
 		var ctx = $("#pieChart").get(0).getContext("2d");
+		pend -= 1;
 		var data = {
 		    datasets: [{
 		        data: [pend, comp],
@@ -50,15 +125,15 @@ var app = {
 		        'Pendientes',
 		        'Completadas'
 		    ]
-		};
+		};/*
 		var options = {
 			responsive: true
-		};
+		};*/
 
 		var myDoughnutChart = new Chart(ctx, {
 		    type: 'doughnut',
 		    data: data,
-		    options: options
+		    /*options: options*/
 		});
 	}
 };

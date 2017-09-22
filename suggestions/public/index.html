@@ -21,16 +21,24 @@
 	<div style="text-align:center;">
 		<h1>Buzón de sugerencias</h1>
 	</div>
+	<div style="text-align:center;">
+		<h3>¿Desea hacer alguna sugerencia? Pulse <a href="">aquí</a></h3>
+	</div>
 	<div class="row">
 		<div class="col-md-4" style="padding-left:4%">
-			<h4>Pendientes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar"></i></h4>
+			<h4>Pendientes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar" onclick="app.editPend();" id="editar"></i>&nbsp;&nbsp;
+				<i class="fa fa-fw fa-plus" onclick="document.getElementById('detalles').style.display = 'block';" title="Añadir" id="añadir"></i></h4>
 			<div id="pends"></div>
-	        <i class="fa fa-fw fa-plus" onclick="document.getElementById('detalles').style.display = 'block';"></i>
 		    <div class="form-group" style="clear:both;display:none;" id="detalles">
 		      <label>Sugerencia:</label>
 		      <textarea class="form-control" rows="2" style="width:60%;" placeholder="Ingrese comentario..." id="suggestion"></textarea>
 		    	<button id="button" type="button" class="btn btn-default" style="margin-top:2%;" onclick="document.getElementById('detalles').style.display = 'none';">Cerrar</button>
 		    	<button id="button" type="button" class="btn btn-primary" style="margin-top:2%;" onclick="app.sendSuggestion();">Enviar</button>
+		    </div>
+		    <div class="form-group" style="clear:both;display:none;" id="status">
+		    	<button id="button" type="button" class="btn btn-default" style="margin-top:2%;" onclick="app.closeEdit();">Cerrar</button>
+		    	<button id="button" type="button" class="btn btn-primary" style="margin-top:2%;" onclick="app.saveStat();">Enviar</button>
 		    </div>
 		</div>
 		<div class="col-md-4">
@@ -40,6 +48,7 @@
 		</div>
 		<div class="col-md-4">
 			<h4 style="padding-left:3%">Completadas:</h4>
+			<div id="comps"></div>
 		</div>
 	</div>
 
