@@ -9,22 +9,38 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap-slider.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/AdminLTE.min.css" />
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link href="img/favicon.ico" rel="shortcut icon"/>
     <title>Buzón de sugerencias</title>
 </head>
 
 <body>
-	<div style="margin-top:2%;">
-		<a class="logo" style="padding-left:2%;"><img src="img/soutec.png" height="30px"></a>
-	</div>
+	<header class="main-header">
+		<!-- Logo -->
+		<a class="logo" target="blank">
+		  <img src="img/soutec.png" height="30px" href="http://www.soutec-group.com">
+		  <img src="img/settings.png" height="20px" data-toggle="modal" data-target="#myModal10" title="Iniciar Sesión">
+		</a>
+		<!-- Header Navbar: style can be found in header.less -->
+		<nav class="navbar navbar-static-top">
+		  <div class="navbar-custom-menu">
+		    <ul class="nav navbar-nav">
+		      <!-- Control Sidebar Toggle Button -->
+		      <li>
+		        
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+	</header>
 	<div style="text-align:center;">
 		<h1>Buzón de sugerencias</h1>
 	</div>
 	<div style="text-align:center;">
 		<h3>¿Desea hacer alguna sugerencia? Pulse <a href="">aquí</a></h3>
 	</div>
-	<div class="row">
+	<div class="row" style="margin-bottom:40%;">
 		<div class="col-md-4" style="padding-left:4%">
 			<h4>Pendientes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar" onclick="app.editPend();" id="editar"></i>&nbsp;&nbsp;
@@ -51,7 +67,64 @@
 			<div id="comps"></div>
 		</div>
 	</div>
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Cliente ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal10" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Log In</h4>
+      </div>
+      <div id="" class="confirm">Introduzca su usuario y contraseña</div>
+	    <div id="info-meet-data" style="margin-left:15%;margin-bottom:2%;">
+	      <label>Correo Electrónico:</label>
+	      <div class="input-group" style="width: 80%;">
+	        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+	        <input type="text" class="form-control" placeholder="Email" id="email">
+	        <span class="ocult" style="display: none;"></span>
+	      </div>
+	    </div>
+	    <div id="info-meet-data" style="margin-left:15%;">
+	      <label>Contraseña:</label>
+	      <div class="input-group" style="width: 80%;">
+	        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+	        <input type="password" class="form-control" placeholder="Contraseña" id="password">
+	        <span class="ocult" style="display: none;"></span>
+	      </div>
+	    </div>
+	    <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="app.login();">Acceder</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
 
+<!-- ###################################################################################################### -->
+<!-- #####################################  Modal Cliente ################################################# -->
+<!-- ###################################################################################################### -->
+<div class="modal fade" id="myModal11" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="color: #000;">Confirmar cierre de sesión</h4>
+      </div>
+      <div id="" class="confirm">¿Estás seguro que deseas salir de la sesión?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="app.logout();">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ###################################################################################################### -->
+<!-- ###################################################################################################### -->
 	<footer>
 	  <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;">
 	  <img src="img/cuadritospq.png" height="100px" style="position:fixed;bottom:0;left:330px;">
@@ -65,6 +138,7 @@
 <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-slider.min.js"></script>
 <script type="text/javascript" src="js/Chart.min.js"></script>
+<script type="text/javascript" src="js/adminlte.min.js"></script>
 <script type="text/javascript" src="js/firebase.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 

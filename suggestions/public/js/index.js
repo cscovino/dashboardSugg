@@ -1,14 +1,14 @@
 var app = {
-	model:{},
+  	model:{},
 
-	firebaseConfig: {
-	    apiKey: "AIzaSyBPoo47X4J0Cwc4AeVgMhg6G5aafqc1ilo",
-	    authDomain: "sugerencias-2938f.firebaseapp.com",
-	    databaseURL: "https://sugerencias-2938f.firebaseio.com",
-	    projectId: "sugerencias-2938f",
-	    storageBucket: "sugerencias-2938f.appspot.com",
-	    messagingSenderId: "1032775982970"
-	},
+  	firebaseConfig: {
+  	    apiKey: "AIzaSyBPoo47X4J0Cwc4AeVgMhg6G5aafqc1ilo",
+  	    authDomain: "sugerencias-2938f.firebaseapp.com",
+  	    databaseURL: "https://sugerencias-2938f.firebaseio.com",
+  	    projectId: "sugerencias-2938f",
+  	    storageBucket: "sugerencias-2938f.appspot.com",
+  	    messagingSenderId: "1032775982970"
+  	},
 
   	setSnap: function(snap){
   		app.model = snap;
@@ -112,30 +112,47 @@ var app = {
   		app.refreshComps();
   	},
 
-	refreshChart: function(pend,comp){
-		var ctx = $("#pieChart").get(0).getContext("2d");
-		pend -= 1;
-		var data = {
-		    datasets: [{
-		        data: [pend, comp],
-		        backgroundColor: ['#f40000','#118200']
-		    }],
-		    // These labels appear in the legend and in the tooltips when hovering different arcs
-		    labels: [
-		        'Pendientes',
-		        'Completadas'
-		    ]
-		};/*
-		var options = {
-			responsive: true
-		};*/
+    login: function(){
+      var mail = document.getElementById('email').value;
+      var pass = document.getElementById('password').value;
+      firebase.auth().signInWithEmailAndPassword(mail,pass).catch(function(error){
+        console.log(error.code);
+        console.log(error.message);
+      });
+    },
 
-		var myDoughnutChart = new Chart(ctx, {
-		    type: 'doughnut',
-		    data: data,
-		    /*options: options*/
-		});
-	}
+    logout: function(){
+      firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      }).catch(function(error) {
+        // An error happened.
+      });
+    },
+
+  	refreshChart: function(pend,comp){
+  		var ctx = $("#pieChart").get(0).getContext("2d");
+  		pend -= 1;
+  		var data = {
+  		    datasets: [{
+  		        data: [pend, comp],
+  		        backgroundColor: ['#f40000','#118200']
+  		    }],
+  		    // These labels appear in the legend and in the tooltips when hovering different arcs
+  		    labels: [
+  		        'Pendientes',
+  		        'Completadas'
+  		    ]
+  		};/*
+  		var options = {
+  			responsive: true
+  		};*/
+
+  		var myDoughnutChart = new Chart(ctx, {
+  		    type: 'doughnut',
+  		    data: data,
+  		    /*options: options*/
+  		});
+  	}
 };
 
 firebase.initializeApp(app.firebaseConfig);
@@ -143,4 +160,22 @@ firebase.database().ref().on('value', function(snap){
 	if (snap.val() !== null) {
 		app.setSnap(snap.val());
 	}
+});
+
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
+
+emailjs.init("user_E6w9y3AjySOWMQGes6bIy");
+
+firebase.auth().onAuthStateChanged(function(user){
+  if (user) {
+    document.location.href = 'dashboard.html';
+    console.log(user.email);
+  }
+  else{
+    console.log('User sign out');
+  }
 });
