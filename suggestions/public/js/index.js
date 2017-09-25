@@ -112,23 +112,6 @@ var app = {
   		app.refreshComps();
   	},
 
-    login: function(){
-      var mail = document.getElementById('email').value;
-      var pass = document.getElementById('password').value;
-      firebase.auth().signInWithEmailAndPassword(mail,pass).catch(function(error){
-        console.log(error.code);
-        console.log(error.message);
-      });
-    },
-
-    logout: function(){
-      firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-      }).catch(function(error) {
-        // An error happened.
-      });
-    },
-
   	refreshChart: function(pend,comp){
   		var ctx = $("#pieChart").get(0).getContext("2d");
   		pend -= 1;
@@ -142,17 +125,49 @@ var app = {
   		        'Pendientes',
   		        'Completadas'
   		    ]
-  		};/*
+  		};
   		var options = {
   			responsive: true
-  		};*/
+  		};
 
   		var myDoughnutChart = new Chart(ctx, {
   		    type: 'doughnut',
   		    data: data,
-  		    /*options: options*/
+  		    options: options
   		});
-  	}
+  	},
+
+    showOpts: function(){
+      document.getElementById('options').style.display = 'block';
+      document.getElementById('log').src = 'img/sign.png';
+      $('#log').attr('data-target','#myModal11');
+    },
+
+    login: function(){
+      var mail = document.getElementById('email').value;
+      var pass = document.getElementById('password').value;
+      firebase.auth().signInWithEmailAndPassword(mail,pass).catch(function(error){
+        console.log(error.code);
+        console.log(error.message);
+      });
+      app.clean();
+    },
+
+    clean: function(){
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
+    },
+
+    logout: function(){
+      firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+      document.getElementById('options').style.display = 'none';
+      document.getElementById('log').src = 'img/settings.png';
+      $('#log').attr('data-target','#myModal10');
+      }).catch(function(error) {
+        // An error happened.
+      });
+    },
 };
 
 firebase.initializeApp(app.firebaseConfig);
@@ -168,12 +183,9 @@ firebase.auth().signOut().then(function() {
   // An error happened.
 });
 
-emailjs.init("user_E6w9y3AjySOWMQGes6bIy");
-
 firebase.auth().onAuthStateChanged(function(user){
   if (user) {
-    document.location.href = 'dashboard.html';
-    console.log(user.email);
+    app.showOpts();
   }
   else{
     console.log('User sign out');
