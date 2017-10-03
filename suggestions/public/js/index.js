@@ -21,6 +21,7 @@ var app = {
   		document.getElementById('detalles').style.display = 'none';
   		var sugg = document.getElementById('suggestion').value;
   		firebase.database().ref('pendientes').push({suggestion:sugg,percent:0});
+      app.closeSugg();
   	},
 
   	refreshComps: function(){
@@ -37,13 +38,13 @@ var app = {
 
   	refreshPends: function(){
   		var suggs = $('#pends');
-		suggs.html('');
-		var codigo = '<ul>';
-		var aux = 0;
+		  suggs.html('');
+		  var codigo = '<ul>';
+		  var aux = 0;
   		for(var key in app.model.pendientes){
   			if (app.model.pendientes[key] != "") {
   				codigo += '<li>'+app.model.pendientes[key].suggestion+'</li>';
-	  			codigo += '<div class="progress" style="width: 60%;"><div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"';
+	  			codigo += '<div class="progress" style="width: 60%;"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"';
 	  			codigo += 'style="width:'+app.model.pendientes[key].percent+'%" id=bar'+key+'></div></div>'; 
 	  			codigo += "<input id='slider"+key+"' class='sliders' style='display:none;' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='45'/>";
   				aux = 1;
@@ -57,6 +58,7 @@ var app = {
   	},
 
   	editPend: function(){
+      document.getElementById('añadir').style.pointerEvents = 'none';
   		document.getElementById('status').style.display = 'block';
   		document.getElementById('editar').style.pointerEvents = 'none';
   		var sliders = document.getElementsByClassName('sliders');
@@ -76,6 +78,7 @@ var app = {
   	},
 
   	closeEdit: function(){
+      document.getElementById('añadir').style.pointerEvents = 'auto';
   		document.getElementById('status').style.display = 'none';
   		document.getElementById('editar').style.pointerEvents = 'auto';
   		var sliders = document.getElementsByClassName('sliders');
@@ -86,6 +89,18 @@ var app = {
   			progress[i].style.display = 'block';
   		}
   	},
+
+    newSugg: function(){
+      document.getElementById('añadir').style.pointerEvents = 'none';
+      document.getElementById('editar').style.pointerEvents = 'none';
+      document.getElementById('detalles').style.display = 'block';
+    },
+
+    closeSugg: function(){
+      document.getElementById('añadir').style.pointerEvents = 'auto';
+      document.getElementById('editar').style.pointerEvents = 'auto';
+      document.getElementById('detalles').style.display = 'none';
+    },
 
   	saveStat: function(){
   		for(var key in app.model.pendientes){
@@ -118,7 +133,7 @@ var app = {
   		var data = {
   		    datasets: [{
   		        data: [pend, comp],
-  		        backgroundColor: ['#f40000','#118200']
+  		        backgroundColor: ['#dd4b39','#5cb85c']
   		    }],
   		    // These labels appear in the legend and in the tooltips when hovering different arcs
   		    labels: [
