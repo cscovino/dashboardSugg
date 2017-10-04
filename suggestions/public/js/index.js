@@ -209,3 +209,13 @@ firebase.auth().onAuthStateChanged(function(user){
     console.log('User sign out');
   }
 });
+
+/*if (screen.width > 480) {
+  $("#bottom-img").attr("src","img/cuadritospq4.png");
+}
+else if (screen.width > 800) {
+  $("#bottom-img").attr("src","img/cuadritospq3.png");
+}
+else if (screen.width > 1024) {
+  $("#bottom-img").attr("src","img/cuadritospq2.png");
+}*/
