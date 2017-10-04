@@ -44,8 +44,8 @@ var app = {
   		for(var key in app.model.pendientes){
   			if (app.model.pendientes[key] != "") {
   				codigo += '<li>'+app.model.pendientes[key].suggestion+'</li>';
-	  			codigo += '<div class="progress" style="width: 60%;"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"';
-	  			codigo += 'style="width:'+app.model.pendientes[key].percent+'%" id=bar'+key+'></div></div>'; 
+	  			codigo += '<div class="progress" style="width:60%;"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"';
+	  			codigo += 'style="width:'+app.model.pendientes[key].percent+'%;background-color:#295063;" id=bar'+key+'></div></div>'; 
 	  			codigo += "<input id='slider"+key+"' class='sliders' style='display:none;' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='45'/>";
   				aux = 1;
   			}
@@ -133,7 +133,7 @@ var app = {
   		var data = {
   		    datasets: [{
   		        data: [pend, comp],
-  		        backgroundColor: ['#dd4b39','#5cb85c']
+  		        backgroundColor: ['#295063','#00a5ba'] //00a5ba,08678e
   		    }],
   		    // These labels appear in the legend and in the tooltips when hovering different arcs
   		    labels: [
@@ -142,7 +142,10 @@ var app = {
   		    ]
   		};
   		var options = {
-  			responsive: true
+  			responsive: true,
+        legend: {
+          position: 'bottom'
+        }
   		};
 
   		var myDoughnutChart = new Chart(ctx, {

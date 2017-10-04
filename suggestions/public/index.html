@@ -19,29 +19,19 @@
 	<header class="main-header">
 		<!-- Logo -->
 		<a class="logo" target="blank">
-		  <img src="img/soutec.png" height="30px" href="http://www.soutec-group.com">
-		  <img src="img/settings.png" height="20px" data-toggle="modal" data-target="#myModal10" id="log" title="Iniciar Sesión" style="margin-left:5%;">
+		  <img src="img/soutec.png" height="30px" href="http://www.soutec-group.com" style="margin-left:-3%;">
+		  <img src="img/settings.png" height="12px" data-toggle="modal" data-target="#myModal10" id="log" title="Iniciar Sesión" style="margin-left:35%;">
 		</a>
-		<!-- Header Navbar: style can be found in header.less -->
-		<nav class="navbar navbar-static-top">
-		  <div class="navbar-custom-menu">
-		    <ul class="nav navbar-nav">
-		      <!-- Control Sidebar Toggle Button -->
-		      <li>
-		        
-		      </li>
-		    </ul>
-		  </div>
-		</nav>
 	</header>
-	<div style="text-align:center;">
+	<div style="text-align:center;color:white;background-color:#08678e;padding-bottom:1px;">
 		<h1>Dashboard de sugerencias</h1>
 	</div>
-	<div style="text-align:center;">
-		<h3>¿Desea hacer alguna sugerencia? Pulse <a href="https://goo.gl/forms/BwZozibDu6dG7Hs53" target="blank">aquí</a></h3>
+	<div style="text-align:center;margin-bottom:15px;">
+		<h2>¿Desea hacer alguna sugerencia? Pulse <a href="https://goo.gl/forms/535TVJhxW5AVXyVs1" target="blank">aquí</a></h2>
 	</div>
 	<div class="row" style="margin-bottom:40%;">
-		<div class="col-md-4">
+		<div class="col-md-4" style="margin-bottom:20px;">
+			<h3 style="padding-left:4%">Estatus de las sugerencias</h3>
 			<h4 style="padding-left:4%">Pendientes:</h4>
 			<div id="options" style="margin-left:40px;display:none;">
 				<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar" onclick="app.editPend();" id="editar"></i>&nbsp;
@@ -59,12 +49,12 @@
 		    	<button id="button" type="button" class="btn btn-primary" style="margin-top:2%;" onclick="app.saveStat();">Enviar</button>
 		    </div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-4" style="margin-bottom:20px;">
             <div class="chart-container">
               <canvas id="pieChart" style="height:250px"></canvas>
             </div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-4" style="margin-bottom:20px;">
 			<h4 style="padding-left:4%">Completadas:</h4>
 			<div id="comps"></div>
 		</div>
