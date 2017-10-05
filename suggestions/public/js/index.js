@@ -27,9 +27,9 @@ var app = {
   	refreshComps: function(){
   		var suggs = $('#comps');
 		suggs.html('');
-		var codigo = '<ul>';
+		var codigo = '<ul class="fa-ul">';
   		for(var key in app.model.completadas){
-  			codigo += '<li>'+app.model.completadas[key].suggestion+'</li>';
+  			codigo += '<li><i class="fa-li fa fa-check-square-o"></i>'+app.model.completadas[key].suggestion+'</li>';
   		}
   		codigo += '</ul>';
   		suggs.append(codigo);
@@ -144,7 +144,10 @@ var app = {
   		var options = {
   			responsive: true,
         legend: {
-          position: 'bottom'
+          position: 'left',
+          /*labels: {
+            boxWidth: '15'
+          }*/
         }
   		};
 
