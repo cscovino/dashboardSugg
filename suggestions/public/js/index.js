@@ -1,14 +1,14 @@
 var app = {
   	model:{},
 
-  	firebaseConfig: {
-  	    apiKey: "AIzaSyBPoo47X4J0Cwc4AeVgMhg6G5aafqc1ilo",
-  	    authDomain: "sugerencias-2938f.firebaseapp.com",
-  	    databaseURL: "https://sugerencias-2938f.firebaseio.com",
-  	    projectId: "sugerencias-2938f",
-  	    storageBucket: "sugerencias-2938f.appspot.com",
-  	    messagingSenderId: "1032775982970"
-  	},
+    firebaseConfig: {
+      apiKey: "AIzaSyCspPFp4TAhFXrkwsy-9N8DO3lNFtYQY5k",
+      authDomain: "reuniones-b24ce.firebaseapp.com",
+      databaseURL: "https://reuniones-b24ce.firebaseio.com",
+      projectId: "reuniones-b24ce",
+      storageBucket: "reuniones-b24ce.appspot.com",
+      messagingSenderId: "1083009736195"
+    },
 
   	setSnap: function(snap){
   		app.model = snap;
