@@ -16,18 +16,15 @@
 </head>
 
 <body>
-	<header class="main-header">
-		<!-- Logo -->
-		<a class="logo" target="blank" style="width: 100%;padding:0px;">
-		  <img src="img/soutec.png" height="30px" href="http://www.soutec-group.com" id="soutec">
-		  <img src="img/settings.png" height="10px" data-toggle="modal" data-target="#myModal10" id="log" title="Iniciar Sesión">
-		</a>&nbsp;
-	</header>
+	<div class="main-header" style="margin-bottom:10px;">
+		  <a href="http://www.soutec-group.com" target="blank"><img src="img/soutec.png" height="30px" id="soutec" style="margin-left:3px;margin-top:3px;"></a>
+		  <img src="img/settings.png" height="10px" data-toggle="modal" data-target="#myModal10" id="log" title="Iniciar Sesión" style="position:absolute;right:3px;top:3px;">
+	</div>
 	<div style="text-align:center;padding-bottom:1px;" id="titulo">
-		<h1>Dashboard de sugerencias</h1>
+		<h1 style="padding-top:5px;">Dashboard de sugerencias</h1>
 	</div>
 	<div style="text-align:center;margin-bottom:15px;">
-		<h2>¿Desea hacer alguna sugerencia? Pulse <a href="https://goo.gl/forms/535TVJhxW5AVXyVs1" target="blank">aquí</a></h2>
+		<h2>Para nosotros tu opinión es muy importante, si desea hacer alguna sugerencia pulse <a href="https://goo.gl/forms/535TVJhxW5AVXyVs1" target="blank">aquí</a></h2>
 	</div>
 	<div class="row" id="contenido">
 		<div class="col-md-4" style="margin-bottom:20px;">
@@ -54,7 +51,7 @@
               <canvas id="pieChart" style="height:250px"></canvas>
             </div>
 		</div>
-		<div class="col-md-4" style="margin-bottom:20px;" id="comp">
+		<div class="col-md-4" style="" id="comp">
 			<h4 style="padding-left:4%">Completadas:</h4>
 			<div id="comps"></div>
 		</div>
@@ -117,9 +114,9 @@
 </div>
 <!-- ###################################################################################################### -->
 <!-- ###################################################################################################### -->
-	<footer>
-	  <img src="img/cuadritospq2.png" style="position:fixed;bottom:0;" id="bottom-img">
-	</footer>
+
+  <img src="img/cuadritospq2.png" style="position:absolute;" id="bottom-img">&nbsp;
+
 
 </body>
 
