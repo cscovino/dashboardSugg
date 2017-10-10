@@ -1,5 +1,8 @@
 var app = {
-  	model:{},
+  	model:{
+      completadas: {},
+      pendientes: {}
+    },
 
     firebaseConfig: {
       apiKey: "AIzaSyAOPHWrzdfgspz-S8mpDeFkUgiq8LVy53k",
@@ -10,10 +13,15 @@ var app = {
       messagingSenderId: "432986026079"
     },
 
-  	setSnap: function(snap){
-  		app.model = snap;
+    setPends: function(snap){
+      app.model.pendientes = snap;
+      app.refreshChart(Object.keys(app.model.pendientes).length,Object.keys(app.model.completadas).length);
+      app.refreshPends();
+    },
+
+  	setComps: function(snap){
+  		app.model.completadas = snap;
   		app.refreshChart(Object.keys(app.model.pendientes).length,Object.keys(app.model.completadas).length);
-  		app.refreshPends();
   		app.refreshComps();
   	},
 
@@ -26,13 +34,19 @@ var app = {
 
   	refreshComps: function(){
   		var suggs = $('#comps');
-		suggs.html('');
-		var codigo = '<ul class="fa-ul">';
+      var aux = 0;
+		  suggs.html('');
+		  var codigo = '<ul class="fa-ul">';
   		for(var key in app.model.completadas){
-  			codigo += '<li><i class="fa-li fa fa-check-square-o"></i>'+app.model.completadas[key].suggestion+'</li>';
+        if (app.model.completadas[key] != "") {
+          codigo += '<li><i class="fa-li fa fa-check-square-o"></i>'+app.model.completadas[key].suggestion+'</li>';
+          aux = 1;
+        }
   		}
   		codigo += '</ul>';
-  		suggs.append(codigo);
+      if (aux === 1) {
+        suggs.append(codigo);
+      }
   		app.closeEdit();
   	},
 
@@ -46,7 +60,7 @@ var app = {
   				codigo += '<li>'+app.model.pendientes[key].suggestion+'</li>';
 	  			codigo += '<div class="progress" style="width:60%;"><div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"';
 	  			codigo += 'style="width:'+app.model.pendientes[key].percent+'%;background-color:#295063;" id=bar'+key+'></div></div>'; 
-	  			codigo += "<input id='slider"+key+"' class='sliders' style='display:none;' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='45'/>";
+	  			codigo += "<input id='slider"+key+"' style='width:60%;' class='sliders' style='display:none;' type='text' data-slider-min='0' data-slider-max='100' data-slider-step='1' data-slider-value='45'/>";
   				aux = 1;
   			}
   		}
@@ -66,7 +80,6 @@ var app = {
   		var progress = document.getElementsByClassName('progress');
   		var i = 0;
   		for(var key in app.model.pendientes){
-  			debugger;
   			if (app.model.pendientes[key] != "") {
 	  			sliders[i].style.display = 'block';
 	  			progress[i].style.display = 'none';
@@ -100,10 +113,12 @@ var app = {
       document.getElementById('añadir').style.pointerEvents = 'auto';
       document.getElementById('editar').style.pointerEvents = 'auto';
       document.getElementById('detalles').style.display = 'none';
+      document.getElementById('suggestion').value = '';
     },
 
   	saveStat: function(){
   		for(var key in app.model.pendientes){
+        debugger;
   			if (app.model.pendientes[key] != ""){
   				var newPercent = document.getElementById('slider'+key).defaultValue;
 	  			if (newPercent == 100) {
@@ -113,7 +128,7 @@ var app = {
 	  				if (Object.keys(app.model.pendientes).length === 1) {
 	  					firebase.database().ref('pendientes').push('');
 	  				}
-	  				firebase.database().ref('pendientes').child(key).remove();
+	  				delete app.model.pendientes[key];
 	  			}
 	  			else{
 	  				app.model.pendientes[key].percent = newPercent;
@@ -121,7 +136,7 @@ var app = {
 	  			}
   			}	
   		}
-  		firebase.database().ref('pendientes').update(app.model.pendientes);
+  		firebase.database().ref('pendientes').set(app.model.pendientes);
   		app.closeEdit();
   		app.refreshPends();
   		app.refreshComps();
@@ -130,6 +145,7 @@ var app = {
   	refreshChart: function(pend,comp){
   		var ctx = $("#pieChart").get(0).getContext("2d");
   		pend -= 1;
+      comp -= 1;
   		var data = {
   		    datasets: [{
   		        data: [pend, comp],
@@ -192,9 +208,14 @@ var app = {
 };
 
 firebase.initializeApp(app.firebaseConfig);
-firebase.database().ref().on('value', function(snap){
+firebase.database().ref('pendientes').on('value', function(snap){
+  if (snap.val() !== null) {
+    app.setPends(snap.val());
+  }
+});
+firebase.database().ref('completadas').on('value', function(snap){
 	if (snap.val() !== null) {
-		app.setSnap(snap.val());
+		app.setComps(snap.val());
 	}
 });
 
@@ -212,13 +233,3 @@ firebase.auth().onAuthStateChanged(function(user){
     console.log('User sign out');
   }
 });
-
-/*if (screen.width > 480) {
-  $("#bottom-img").attr("src","img/cuadritospq4.png");
-}
-else if (screen.width > 800) {
-  $("#bottom-img").attr("src","img/cuadritospq3.png");
-}
-else if (screen.width > 1024) {
-  $("#bottom-img").attr("src","img/cuadritospq2.png");
-}*/
